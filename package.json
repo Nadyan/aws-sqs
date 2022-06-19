@@ -1,0 +1,14 @@
+{
+  "name": "aws-sqs",
+  "version": "1.0.0",
+  "description": "sqs tests",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nadyan Pscheidt",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.1157.0"
+  }
+}
