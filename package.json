@@ -4,11 +4,13 @@
   "description": "sqs tests",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js"
   },
   "author": "Nadyan Pscheidt",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.1157.0"
+    "aws-sdk": "^2.1157.0",
+    "dotenv": "^16.0.1"
   }
 }
