@@ -13,8 +13,22 @@ async function enviaMensagem(sqs, queueURL) {
     });
 }
 
+async function enviaPoisonMessage(sqs, queueURL) {
+    const params = defineParametrosPoison(queueURL);
+    console.log('Enviando Poison Message no formato XML para a fila...');
+    await sqs.sendMessage(params, (err, info) => {
+        if (err) {
+            console.log('Erro ao enviar poison!');
+            console.log(err, err.stack);
+        } else {
+            console.log('Poison enviado com sucesso!');
+            console.log(info);
+        }
+    });
+}
+
 function defineParametros(queueURL) {
-    params = {
+    const params = {
         MessageBody: JSON.stringify({
             produtos: [
                 { produto: 'livro1', valor: 10},
@@ -29,11 +43,40 @@ function defineParametros(queueURL) {
             }
         }),
         QueueUrl: queueURL
-    }
+    };
+
+    return params;
+}
+
+function defineParametrosPoison(queueURL) {
+    const params = {
+        MessageBody: `
+            <produtos>
+                <produto>livro1</produto>
+                <valor>10</valor>
+                <produto>livro2</produto>
+                <valor>20</valor>
+                <produto>caneca1</produto>
+                <valor>13</valor>
+            </produtos>
+            <cliente>
+                1
+            </cliente
+            <moeda>
+                'BRL'
+            </moeda>
+            <paramento>
+                <forma>crédito</forma>
+                <parcelas>3</parcelas>
+            </pagamento>
+        `,
+        QueueUrl: queueURL
+    };
 
     return params;
 }
 
 module.exports = {
-    enviaMensagem
+    enviaMensagem,
+    enviaPoisonMessage
 }
